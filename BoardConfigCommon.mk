@@ -80,6 +80,13 @@ TARGET_RECOVERY_FSTAB := device/semc/msm7x30-common/rootdir/recovery.fstab
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun%d/file"
 TARGET_RECOVERY_DEVICE_DIRS += device/semc/msm7x30-common
 
+#twrp
+DEVICE_RESOLUTION := 540x854
+RECOVERY_SDCARD_ON_DATA := true -- this enables proper handling of /data/media on devices that have this folder for storage (most Honeycomb and devices that originally shipped with ICS like Galaxy Nexus)
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_NO_BATT_PERCENT := true
+TW_DEFAULT_EXTERNAL_STORAGE := true
+
 # Kernel
 TARGET_NO_KERNEL := false
 TARGET_KERNEL_SOURCE := kernel/semc/msm7x30
