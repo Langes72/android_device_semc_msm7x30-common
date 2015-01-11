@@ -81,7 +81,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun%d
 TARGET_RECOVERY_DEVICE_DIRS += device/semc/msm7x30-common
 
 #twrp
-DEVICE_RESOLUTION := 540x854
+DEVICE_RESOLUTION := 480x854
 RECOVERY_SDCARD_ON_DATA := true -- this enables proper handling of /data/media on devices that have this folder for storage (most Honeycomb and devices that originally shipped with ICS like Galaxy Nexus)
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_NO_BATT_PERCENT := true
