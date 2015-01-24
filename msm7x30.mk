@@ -70,16 +70,6 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/usr/keylayout/simple_remote.kl:system/usr/keylayout/simple_remote.kl \
     $(COMMON_PATH)/rootdir/system/usr/keylayout/simple_remote_appkey.kl:system/usr/keylayout/simple_remote_appkey.kl
 
-# Offline charging animation
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/animations/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT)/charging_animation_01.png:system/semc/chargemon/data/charging_animation_01.png \
-    $(COMMON_PATH)/animations/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT)/charging_animation_02.png:system/semc/chargemon/data/charging_animation_02.png \
-    $(COMMON_PATH)/animations/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT)/charging_animation_03.png:system/semc/chargemon/data/charging_animation_03.png \
-    $(COMMON_PATH)/animations/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT)/charging_animation_04.png:system/semc/chargemon/data/charging_animation_04.png \
-    $(COMMON_PATH)/animations/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT)/charging_animation_05.png:system/semc/chargemon/data/charging_animation_05.png \
-    $(COMMON_PATH)/animations/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT)/charging_animation_06.png:system/semc/chargemon/data/charging_animation_06.png \
-    $(COMMON_PATH)/animations/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT)/charging_animation_07.png:system/semc/chargemon/data/charging_animation_07.png
-
 # Boot logo
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/bootlogo/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT).rle:root/initlogo.rle
@@ -121,13 +111,15 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libc2dcolorconvert
 
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images
+
 # qcmediaplayer
 PRODUCT_PACKAGES += qcmediaplayer
 
 # Misc
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory \
-    Torch
+PRODUCT_PACKAGES += com.android.future.usb.accessory
 
 # Live wallpapers picker
 PRODUCT_PACKAGES += LiveWallpapersPicker
@@ -159,7 +151,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.hw=1 \
     debug.composition.type=dyn \
-    persist.hwc.mdpcomp.enable=true \
+    persist.hwc.mdpcomp.enable=false \
     debug.mdpcomp.maxlayer=3 \
     debug.mdpcomp.idletime=-1
 
@@ -172,19 +164,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
-# Low Power Audio
+# Audio
 PRODUCT_PROPERTY_OVERRIDES += \
-    lpa.decode=false \
-    use.non-omx.mp3.decoder=false \
-    use.non-omx.aac.decoder=false
-
-# Disable gapless mode
-PRODUCT_PROPERTY_OVERRIDES += \
-    audio.gapless.playback.disable=true
-
-# AwesomePlayer
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.stagefright.use-awesome=true
+    audio.offload.disable=1 \
+    persist.sys.media.use-awesome=true
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -197,7 +180,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # For applications to determine if they should turn off specific memory-intensive
 # features that work poorly on low-memory devices.
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.low_ram=true
+    ro.config.low_ram=true \
+    persist.sys.force_highendgfx=true
 
 # Reduce background apps limit to 16 on low-tier devices
 PRODUCT_PROPERTY_OVERRIDES += \
